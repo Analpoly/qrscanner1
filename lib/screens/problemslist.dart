@@ -1,135 +1,114 @@
 import 'package:flutter/material.dart';
+import 'package:qrscanner/components/Problemcards.dart';
 import 'package:qrscanner/components/const.dart';
 
-class ProblemSelectionPage extends StatefulWidget {
-  @override
-  _ProblemSelectionPageState createState() => _ProblemSelectionPageState();
-}
-
-class _ProblemSelectionPageState extends State<ProblemSelectionPage> {
-  String? selectedProblem;
-  TextEditingController problemDescriptionController = TextEditingController();
-
-  final List<String> problems = [
-    "Electrical",
-    "Plumping",
-    "Civil",
-    "Local Maintenance"
-  ];
+class ProblemSelectionPage extends StatelessWidget {
+  const ProblemSelectionPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: second,
-      body: Center(
-        child: Container(
-          width: MediaQuery.sizeOf(context).width * 0.85,
-          padding: const EdgeInsets.all(16.0),
-          decoration: BoxDecoration(
-            color: primary,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                'Select a problem:',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-              SizedBox(height: 16),
-              Column(
-                children: problems.map((problem) {
-                  return RadioListTile<String>(
-                    title: Text(
-                      problem,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    value: problem,
-                    groupValue: selectedProblem,
-                    onChanged: (value) {
-                      setState(() {
-                        selectedProblem = value;
-                      });
-                    },
-                    activeColor: Colors.white,
-                    selected: selectedProblem == problem,
-                    selectedTileColor: primary,
-                        fillColor: MaterialStateProperty.all(Colors.white),
-                  );
-                }).toList(),
-              ),
-              SizedBox(height: 16),
-              TextField(
-                controller: problemDescriptionController,
-                decoration: InputDecoration(
-                  labelText: 'Describe the problem',
-                  labelStyle: TextStyle(color: Colors.white),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              color: primary,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 200),
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: second,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(40),
+                    topRight: Radius.circular(40),
                   ),
                 ),
-                style: TextStyle(color: Colors.white),
-                maxLines: 3,
-              ),
-              SizedBox(height: 16),
-              Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (selectedProblem != null &&
-                        problemDescriptionController.text.isNotEmpty) {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: Text('Problem Submitted'),
-                            content: Text(
-                                'Problem: $selectedProblem\nDescription: ${problemDescriptionController.text}'),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: Text('OK'),
-                              ),
-                            ],
+                width: MediaQuery.of(context).size.width,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 25,
+                    horizontal: 20,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Select a problem:',
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 15,
+                          mainAxisSpacing: 15,
+                          childAspectRatio: 0.9,
+                        ),
+                        itemCount: problemItems.length,
+                        itemBuilder: (context, index) {
+                          return ProblemCard(
+                            image: problemItems[index]['image']!,
+                            title: problemItems[index]['title']!,
                           );
                         },
-                      );
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                              'Please select a problem and describe it'),
+                      ),
+                      const SizedBox(height: 20),
+                      TextField(
+                        decoration: InputDecoration(
+                          labelText: 'Describe the problem',
+                          labelStyle: TextStyle(color: Colors.grey[800]),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          focusedBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: primary),
+                          ),
                         ),
-                      );
-                    }
-                  },
-                  child: Text('Submit'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    foregroundColor: primary,
+                        maxLines: 3,
+                        style: const TextStyle(color: Colors.black),
+                      ),
+                      const SizedBox(height: 20),
+                      Center(
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 15,
+                              horizontal: 50,
+                            ),
+                            backgroundColor: primary,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
+                          child: const Text(
+                            "S u b m i t",
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: third,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 }
 
-void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: ProblemSelectionPage(),
-  ));
-}
