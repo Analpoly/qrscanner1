@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qrscanner/components/Departmentcards..dart';
 import 'package:qrscanner/components/const.dart';
 
 class DepartmentList extends StatelessWidget {
@@ -6,87 +7,71 @@ class DepartmentList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(backgroundColor: primary,
-      // backgroundColor: const Color.fromARGB(216, 203, 196, 196),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: OrientationBuilder(
-          builder: (context, orientation) {
-            return GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: orientation == Orientation.portrait ? 2 : 3, 
-                crossAxisSpacing: 8, 
-                mainAxisSpacing: 8,
-                childAspectRatio: 2.5/3, 
+    return Scaffold(
+      backgroundColor: const Color.fromARGB(240, 255, 255, 255),
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              color: primary,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 230),
+              child: Container(
+                height: 610,
+                decoration: const BoxDecoration(
+                  color: second,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(50),
+                    topRight: Radius.circular(50),
+                  ),
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.all(31),
+                  child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly ,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Wrap(
+                        spacing: 15,
+                        runSpacing: 12,
+                        children: [
+                          DepartmentCard(
+                            imagePath: "image/Electrical.png",
+                            title: "E l e c t r i c a l",
+                          ),
+                          DepartmentCard(
+                            imagePath: "image/Plumbing.png",
+                            title: "P l u m b i n g",
+                          ),
+                          DepartmentCard(
+                            imagePath: "image/Civil.png",
+                            title: "C i v i l",
+                          ),
+                          DepartmentCard(
+                            imagePath: "image/Local.png",
+                            title: "M a i n t e n a n c e",
+                          ),
+                          DepartmentCard(
+                            imagePath: "image/It.png",
+                            title: "I t",
+                          ),
+                          DepartmentCard(
+                            imagePath: "image/Biomedical.png",
+                            title: "B i o m e d i c a l",
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               ),
-              itemCount: 5, 
-              itemBuilder: (context, index) {
-                final titles = ["Electrical", "Plumping", "Civil", "Local Maintenance", "Electrical"];
-                final images = [
-                  'image/Electrical.png',
-                  'image/Plumping.png',
-                  'image/Civil.png',
-                  'image/Local.png',
-                  'image/Electrical.png'
-                ];
-                return buildCategoryContainer(
-                  context,
-                  title: titles[index],
-                  imagePath: images[index],
-                );
-              },
-            );
-          },
+            ),
+          ],
         ),
       ),
     );
   }
 }
 
-Widget buildCategoryContainer(BuildContext context,
-    {required String title, required String imagePath}) {
-  return Container(
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(10),
-      color: primary,
-    ),
-    child: Stack(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Image.asset(
-            imagePath,
-            width: double.infinity,
-            height: double.infinity,
-            fit: BoxFit.fill,
-          ),
-        ),
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.black.withOpacity(0.3),
-          ),
-        ),
-        Positioned(
-          left: 16,
-          bottom: 16,
-          child: Text(
-            title,
-            style: TextStyle(
-              fontSize: 18,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              shadows: [
-                Shadow(
-                  blurRadius: 10.0,
-                  color: Colors.black.withOpacity(0.5),
-                  offset: const Offset(2, 2),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}

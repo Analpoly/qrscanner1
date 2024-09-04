@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:qrscanner/screens/qrcode.dart';
+import 'package:qrscanner/screens/department_list.dart';
+
 
 void main() {
   runApp(const MaterialApp(
-    home:GenerateQRCode(),
-    debugShowCheckedModeBanner: false,
+    home: DepartmentList(),
+    debugShowCheckedModeBanner: false, 
   ));
 }
 
