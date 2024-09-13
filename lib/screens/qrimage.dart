@@ -237,7 +237,7 @@ class QRImage extends StatelessWidget {
                     color: second, fontWeight: FontWeight.bold, fontSize: 20),
               )
             ],
-          )
+          ),
         ],
       ),
     );
