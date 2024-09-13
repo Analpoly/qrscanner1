@@ -83,9 +83,9 @@ class QRImage extends StatelessWidget {
                   child: CircleAvatar(
                     backgroundColor: Colors.white,
                     backgroundImage:
-                        AssetImage('image/docmeds.png'), // Your image here
+                        AssetImage('image/midas_logo.png'), // Your image here
                     radius:
-                        50.0, // Smaller radius to not cover much of the QR code
+                        40.0, // Smaller radius to not cover much of the QR code
                   ),
                 ),
               ],
@@ -94,15 +94,15 @@ class QRImage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // Text(
+              //   'Employee no:',
+              //   style: TextStyle(
+              //     color: second,
+              //     fontSize: 20,
+              //   ),
+              // ),
               Text(
-                'LOCATION :',
-                style: TextStyle(
-                  color: second,
-                  fontSize: 20,
-                ),
-              ),
-              Text(
-                'Pharmacy',
+                controller.text,
                 style: TextStyle(
                     color: primary, fontSize: 20, fontWeight: FontWeight.bold),
               )
