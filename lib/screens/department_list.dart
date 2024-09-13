@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:qrscanner/components/Departmentcards..dart';
 import 'package:qrscanner/components/const.dart';
+import 'package:qrscanner/screens/Biomedicalproblemslists.dart';
+import 'package:qrscanner/screens/Civilproblemslist.dart';
+import 'package:qrscanner/screens/ElectricalproblemsList.dart';
+import 'package:qrscanner/screens/Itproblemslists.dart';
+import 'package:qrscanner/screens/Maintenanceproblemslist.dart';
+import 'package:qrscanner/screens/Plumbingproblemslist.dart';
 
 class DepartmentList extends StatelessWidget {
   const DepartmentList({super.key});
@@ -18,11 +24,12 @@ class DepartmentList extends StatelessWidget {
               color: primary,
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 230),
+              padding: const EdgeInsets.only(top: 235),
               child: Container(
-                height: 610,
+                width: MediaQuery.sizeOf(context).width,
+                height: 600,
                 decoration: const BoxDecoration(
-                  color: second,
+                  color: third,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(50),
                     topRight: Radius.circular(50),
@@ -31,7 +38,7 @@ class DepartmentList extends StatelessWidget {
                 child: const Padding(
                   padding: EdgeInsets.all(31),
                   child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly ,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Wrap(
                         spacing: 15,
@@ -39,27 +46,27 @@ class DepartmentList extends StatelessWidget {
                         children: [
                           DepartmentCard(
                             imagePath: "image/Electrical.png",
-                            title: "E l e c t r i c a l",
+                            title: "ELECTRICAL", nextPage: ElectricalProblemSelectionPage(),
                           ),
                           DepartmentCard(
                             imagePath: "image/Plumbing.png",
-                            title: "P l u m b i n g",
+                            title: "PLUMBING", nextPage: PlumbingProblemSelectionPage(),
                           ),
                           DepartmentCard(
                             imagePath: "image/Civil.png",
-                            title: "C i v i l",
+                            title: "CIVIL", nextPage: CivilProblemSelectionPage(),
                           ),
                           DepartmentCard(
                             imagePath: "image/Local.png",
-                            title: "M a i n t e n a n c e",
+                            title: "MAINTENANCE", nextPage: MaintenanceProblemSelectionPage(),
                           ),
                           DepartmentCard(
                             imagePath: "image/It.png",
-                            title: "I t",
+                            title: "IT", nextPage: ItProblemSelectionPage(),
                           ),
                           DepartmentCard(
                             imagePath: "image/Biomedical.png",
-                            title: "B i o m e d i c a l",
+                            title: "BIOMEDICAL", nextPage: BiomedicalProblemSelectionPage(),
                           ),
                         ],
                       ),
